@@ -1,5 +1,6 @@
 import csv
 from datetime import datetime
+from fileinput import close
 
 FILENAME = "habits.csv"
 
@@ -12,6 +13,7 @@ def add_habits():
             with open(FILENAME, mode="r", newline='', encoding="utf-8") as file:
                 reader = list(csv.reader(file))
                 habit_id=len(reader)+1
+            close()
 
         except FileNotFoundError:
             habit_id=1
@@ -22,6 +24,7 @@ def add_habits():
             writer.writerow([habit_id, habit, minutes, str(now)])
 
         print(f"Habit '{habit}' saved with ID {habit_id}")
+        close()
         break
 
 def check_habits():
@@ -34,6 +37,7 @@ def check_habits():
                     print(f"{row[0]}| Habit {row[1]} | min: {row[2]} | Date: {row[3]}")
             else:
                 print(f"No entries yet.")
+        close()
 
     except FileNotFoundError:
         print("No tracks. Add a habit")
@@ -50,23 +54,19 @@ def delete_habit(id):
                 print(f"ID: {row[0]} | Habit {row[1]} | m: {row[2]} | Date: {row[3]}")
     except FileNotFoundError:
         print("No tracks. Add a habit")
+        close()
         return
 
     new_rows=[row for row in rows if row and int(row[0]) != id]
     with open(FILENAME, mode="w", newline='', encoding="utf-8")as file:
         writer=csv.writer(file)
         writer.writerows(new_rows)
-    print(f"Habit with {id} deleted")
+    print(f"Habit with ID {id} deleted")
+    close()
 
 def graceful_exit():
-    print("\nYou have finished adding, checking or deleting")
-    confirm=input("Do you want to finish the program? (y/n): ").strip().lower()
-    if confirm == "y":
-        print("Goodbye!")
-        exit()
-    else:
-        print("Returning to main menu\n")
-
+    print("Thanks to testing my project!\n =)")
+    exit()
 def main():
 
     print("это моя программа трекера")

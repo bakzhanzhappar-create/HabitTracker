@@ -35,11 +35,16 @@ def delete_habit_ui(id_to_delete):
             if not rows:
                 print("No habits to delete")
                 return
+            delete(id_to_delete)
     except FileNotFoundError:
         print("No tracks. Add a habit")
         return
-    print(f"Habit ID is {id_to_delete}")
-
+    print(f"Habit ID {id_to_delete} is deleted")
+    with open(FILENAME, mode="r", newline='', encoding="utf-8") as file:
+        reader = list(csv.reader(file))
+        if reader:
+            for row in reader:
+                print(f"{row[0]}| Habit {row[1]} | min: {row[2]} | Date: {row[3]}")
 def graceful_exit():
     print("Thanks to testing my project!\n =)")
     exit()
@@ -54,7 +59,6 @@ def main():
         elif request == "delete":
             try:
                 id_to_delete = int(input("Enter ID of the habit you want to delete: ").strip())
-                delete(id_to_delete)
                 delete_habit_ui(id_to_delete)
             except ValueError:
                 print("Invalid ID. `RITE A NUMBA NIGGA")

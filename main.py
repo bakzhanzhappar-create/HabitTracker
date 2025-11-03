@@ -28,7 +28,7 @@ def check_habits():
     except FileNotFoundError:
         print("No tracks. Add a habit")
 
-def delete_habit(id_to_delete):
+def delete_habit_ui(id_to_delete):
     try:
         with open(FILENAME, mode="r", newline='', encoding="utf-8")as file:
             rows = list(csv.reader(file))
@@ -38,7 +38,6 @@ def delete_habit(id_to_delete):
     except FileNotFoundError:
         print("No tracks. Add a habit")
         return
-    delete(id_to_delete)
     print(f"Habit ID is {id_to_delete}")
 
 def graceful_exit():
@@ -55,7 +54,8 @@ def main():
         elif request == "delete":
             try:
                 id_to_delete = int(input("Enter ID of the habit you want to delete: ").strip())
-                delete_habit(id_to_delete)
+                delete(id_to_delete)
+                delete_habit_ui(id_to_delete)
             except ValueError:
                 print("Invalid ID. `RITE A NUMBA NIGGA")
         elif request == "add":

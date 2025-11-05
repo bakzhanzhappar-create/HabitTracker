@@ -1,6 +1,7 @@
 import csv
 from append_habit import add_habit
 from delete_habit_m import delete
+from entities import Habit
 
 FILENAME = "habits.csv"
 
@@ -10,12 +11,11 @@ def add_habits_ui():
         print("====APPENDING====")
         habit_name = input("Habit name? ").strip()
         minutes: int = int(input("How many minutes?"))
-        habit_id=add_habit(habit_name,minutes)
-        print(f"Habit ID is {habit_id}")
+        add_habit(Habit(habit_name, minutes))
         break
 
 def check_habits():
-    print("\n Tracks of Habits: ")
+    print("\nTracks of Habits: ")
     try:
         with open(FILENAME, mode="r", newline='', encoding="utf-8")as file:
             reader=list(csv.reader(file))
@@ -45,11 +45,12 @@ def delete_habit_ui(id_to_delete):
         if reader:
             for row in reader:
                 print(f"{row[0]}| Habit {row[1]} | min: {row[2]} | Date: {row[3]}")
+
 def graceful_exit():
     print("Thanks to testing my project!\n =)")
     exit()
-def main():
 
+def main():
     print("это моя программа трекера")
 
     while True:

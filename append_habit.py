@@ -1,9 +1,10 @@
 import csv
 from datetime import datetime
+from entities import Habit
 
 FILENAME="habits.csv"
 
-def add_habit(habit_name, minutes):
+def add_habit(habit: Habit):
     try:
         with open(FILENAME, "r", newline="", encoding="utf-8") as csvfile:
             reader=list(csv.reader(csvfile))
@@ -14,6 +15,5 @@ def add_habit(habit_name, minutes):
     now=datetime.now().date()
     with open(FILENAME, 'a', newline="", encoding="utf-8") as file:
         writer = csv.writer(file)
-        writer.writerow([habit_id, habit_name, minutes, str(now)])
-        print(f"Habit '{habit_name}' saved with ID {habit_id}")
-    return True
+        writer.writerow([habit_id, habit.name, habit.minutes, str(now)])
+        print(f"Habit '{habit.name}' saved with ID {habit_id}")

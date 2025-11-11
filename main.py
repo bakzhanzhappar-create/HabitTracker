@@ -2,6 +2,7 @@ import csv
 from append_habit import add_habit
 from delete_habit_m import delete
 from entities import Habit
+from habits_reader import reader
 
 FILENAME = "habits.csv"
 
@@ -11,40 +12,26 @@ def add_habits_ui():
         print("====APPENDING====")
         habit_name = input("Habit name? ").strip()
         minutes: int = int(input("How many minutes?"))
-        add_habit(Habit(habit_name, minutes))
+        while True:
+            weight: int = int(input("Rate from 1 to 10, how important?"))
+            if 1 <= weight <=10:
+                break
+            print("Weight must be between 1 and 10")
+        add_habit(Habit(habit_name, minutes, weight))
         break
 
-def check_habits():
+def check_habits_ui():
     print("\nTracks of Habits: ")
-    try:
-        with open(FILENAME, mode="r", newline='', encoding="utf-8")as file:
-            reader=list(csv.reader(file))
-            if reader:
-                for row in reader:
-                    print(f"{row[0]}| Habit {row[1]} | min: {row[2]} | Date: {row[3]}")
-            else:
-                print(f"No entries yet.")
-
-    except FileNotFoundError:
-        print("No tracks. Add a habit")
+    reader(show=True)
 
 def delete_habit_ui(id_to_delete):
-    try:
-        with open(FILENAME, mode="r", newline='', encoding="utf-8")as file:
-            rows = list(csv.reader(file))
-            if not rows:
-                print("No habits to delete")
-                return
-            delete(id_to_delete)
-    except FileNotFoundError:
-        print("No tracks. Add a habit")
+    rows=reader()
+    if not rows:
+        print("No habits to delete")
         return
+    delete(id_to_delete)
     print(f"Habit ID {id_to_delete} is deleted")
-    with open(FILENAME, mode="r", newline='', encoding="utf-8") as file:
-        reader = list(csv.reader(file))
-        if reader:
-            for row in reader:
-                print(f"{row[0]}| Habit {row[1]} | min: {row[2]} | Date: {row[3]}")
+    reader(show=True)
 
 def graceful_exit():
     print("Thanks to testing my project!\n =)")
@@ -56,7 +43,7 @@ def main():
     while True:
         request = input("\nType 'check' to view, 'delete' to remove, 'add' to add more, or 'exit' to quit: ").strip().lower()
         if request == "check":
-            check_habits()
+            check_habits_ui()
         elif request == "delete":
             try:
                 id_to_delete = int(input("Enter ID of the habit you want to delete: ").strip())

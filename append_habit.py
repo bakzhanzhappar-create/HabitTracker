@@ -15,5 +15,5 @@ def add_habit(habit: Habit):
     now=datetime.now().date()
     with open(FILENAME, 'a', newline="", encoding="utf-8") as file:
         writer = csv.writer(file)
-        writer.writerow([habit_id, habit.name, habit.minutes, str(now)])
+        writer.writerow([habit_id, habit.name, habit.minutes, habit.weight, str(now)])
         print(f"Habit '{habit.name}' saved with ID {habit_id}")

@@ -1,4 +1,3 @@
-import csv
 from append_habit import add_habit
 from delete_habit_m import delete
 from entities import Habit

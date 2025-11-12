@@ -3,21 +3,27 @@ from delete_habit_m import delete
 from entities import Habit
 from habits_reader import reader
 
+from console_controller import ConsoleController
+
 FILENAME = "habits.csv"
 
-
 def add_habits_ui():
-    while True:
-        print("====APPENDING====")
-        habit_name = input("Habit name? ").strip()
-        minutes: int = int(input("How many minutes?"))
-        while True:
-            weight: int = int(input("Rate from 1 to 10, how important?"))
-            if 1 <= weight <=10:
-                break
-            print("Weight must be between 1 and 10")
-        add_habit(Habit(habit_name, minutes, weight))
-        break
+    habit = ConsoleController().request_habit()
+    add_habit(habit)
+
+#
+# def add_habits_ui():
+#     while True:
+#         print("====APPENDING====")
+#         habit_name = input("Habit name? ").strip()
+#         minutes: int = int(input("How many minutes?"))
+#         while True:
+#             weight: int = int(input("Rate from 1 to 10, how important?"))
+#             if 1 <= weight <=10:
+#                 break
+#             print("Weight must be between 1 and 10")
+#         add_habit(Habit(habit_name, minutes, weight))
+#         break
 
 def check_habits_ui():
     print("\nTracks of Habits: ")

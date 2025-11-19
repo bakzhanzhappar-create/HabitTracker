@@ -12,10 +12,10 @@ def add_habits_ui():
         habit_name = input("Habit name? ").strip()
         minutes: int = int(input("How many minutes?"))
         while True:
-            weight: int = int(input("Rate from 1 to 10, how important?"))
-            if 1 <= weight <=10:
+            weight=float(input("Rate from 1 to 10"))
+            if 1.0 <= weight <=10.0:
                 break
-            print("Weight must be between 1 and 10")
+            print("Weight must be between 1.0 and 10.0")
         add_habit(Habit(habit_name, minutes, weight))
         break
 

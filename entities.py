@@ -5,4 +5,4 @@ from dataclasses import dataclass
 class Habit:
     name: str
     minutes: int
-    weight: int
+    weight: float

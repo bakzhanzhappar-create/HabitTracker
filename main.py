@@ -1,23 +1,17 @@
 from append_habit import add_habit
 from delete_habit_m import delete
-from entities import Habit
 from habits_reader import reader
+
+from console_controller import ConsoleController
 
 FILENAME = "habits.csv"
 
+console = ConsoleController()
 
 def add_habits_ui():
-    while True:
-        print("====APPENDING====")
-        habit_name = input("Habit name? ").strip()
-        minutes: int = int(input("How many minutes?"))
-        while True:
-            weight=float(input("Rate from 1 to 10"))
-            if 1.0 <= weight <=10.0:
-                break
-            print("Weight must be between 1.0 and 10.0")
-        add_habit(Habit(habit_name, minutes, weight))
-        break
+    habit = console.request_habit()
+    add_habit(habit)
+
 
 def check_habits_ui():
     print("\nTracks of Habits: ")
@@ -40,21 +34,20 @@ def main():
     print("это моя программа трекера")
 
     while True:
-        request = input("\nType 'check' to view, 'delete' to remove, 'add' to add more, or 'exit' to quit: ").strip().lower()
+        request = console.request_command()
         if request == "check":
             check_habits_ui()
+
         elif request == "delete":
-            try:
-                id_to_delete = int(input("Enter ID of the habit you want to delete: ").strip())
-                delete_habit_ui(id_to_delete)
-            except ValueError:
-                print("Invalid ID. `RITE A NUMBA NIGGA")
+            id_to_delete = console.request_id()
+            delete_habit_ui(id_to_delete)
+
         elif request == "add":
             add_habits_ui()
+
         elif request == "exit":
             graceful_exit()
-        else:
-            print("That's not a command!")
+
 
 if __name__ == "__main__":
     main()

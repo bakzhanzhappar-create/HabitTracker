@@ -4,9 +4,8 @@ from habits_reader import reader
 
 from console_controller import ConsoleController
 
-FILENAME = "habits.csv"
-
 console = ConsoleController()
+
 
 def add_habits_ui():
     habit = console.request_habit()
@@ -14,33 +13,42 @@ def add_habits_ui():
 
 
 def check_habits_ui():
-    print("\nTracks of Habits: ")
-    reader(show=True)
+    rows = reader()
+    console.show_habits(rows)
+
 
 def delete_habit_ui(id_to_delete):
-    rows=reader()
+    rows = reader()
+
     if not rows:
-        print("No habits to delete")
+        console.show_error("No habits to delete.")
         return
+
     delete(id_to_delete)
-    print(f"Habit ID {id_to_delete} is deleted")
-    reader(show=True)
+    console.show_deleted(id_to_delete)
+
+    # show updated list
+    rows = reader()
+    console.show_habits(rows)
+
 
 def graceful_exit():
-    print("Thanks to testing my project!\n =)")
+    console.show_goodbye()
     exit()
 
+
 def main():
-    print("это моя программа трекера")
+    console.show_goodbye()  # приветствие можно заменить
 
     while True:
         request = console.request_command()
+
         if request == "check":
             check_habits_ui()
 
         elif request == "delete":
-            id_to_delete = console.request_id()
-            delete_habit_ui(id_to_delete)
+            habit_id = console.request_id()
+            delete_habit_ui(habit_id)
 
         elif request == "add":
             add_habits_ui()

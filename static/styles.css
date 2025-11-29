@@ -1,0 +1,131 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: #0f172a;
+    color: #e5e7eb;
+}
+
+.app {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 1.5rem;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+h1 {
+    margin: 0;
+    font-size: 2rem;
+}
+
+main {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+}
+
+section {
+    background: #020617;
+    border-radius: 0.75rem;
+    padding: 1.25rem 1.5rem;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+section h2 {
+    margin-top: 0;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+}
+
+label {
+    margin-bottom: 0.25rem;
+    font-size: 0.9rem;
+}
+
+input {
+    border-radius: 0.5rem;
+    border: 1px solid #1f2937;
+    padding: 0.5rem 0.75rem;
+    background: #020617;
+    color: #e5e7eb;
+}
+
+input:focus {
+    outline: none;
+    border-color: #22c55e;
+    box-shadow: 0 0 0 1px rgba(34, 197, 94, 0.5);
+}
+
+button {
+    border: none;
+    border-radius: 999px;
+    padding: 0.5rem 1.25rem;
+    background: #22c55e;
+    color: #022c22;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s ease, transform 0.05s ease;
+}
+
+button:hover {
+    background: #16a34a;
+}
+
+button:active {
+    transform: scale(0.97);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+    font-size: 0.9rem;
+}
+
+th, td {
+    padding: 0.5rem 0.75rem;
+    text-align: left;
+}
+
+thead {
+    background: rgba(15, 23, 42, 0.9);
+}
+
+tbody tr:nth-child(odd) {
+    background: rgba(15, 23, 42, 0.6);
+}
+
+tbody tr:nth-child(even) {
+    background: rgba(15, 23, 42, 0.3);
+}
+
+.error {
+    color: #f97316;
+    font-size: 0.8rem;
+    min-height: 1.2rem;
+}
+
+.empty {
+    margin-top: 0.75rem;
+    font-size: 0.9rem;
+    color: #9ca3af;
+}
+
+@media (min-width: 768px) {
+    main {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr);
+    }
+}
+
+

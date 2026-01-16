@@ -1,7 +1,7 @@
 from append_habit import add_habit
 from delete_habit_m import delete
 from habits_reader import reader
-
+from entities import Habit, WeightenedHabit
 from console_controller import ConsoleController
 
 console = ConsoleController()
@@ -56,6 +56,50 @@ def main():
         elif request == "exit":
             graceful_exit()
 
+class User:
+
+    """
+    Class User implements a basic user interface, some methods related to creating a habit and providing basic operations.
+
+    Operations include:
+        Create a new habit
+        Update an existing habit
+        Delete an existing habit
+        Retrieve all habits
+        Retrieve one habit by habit_id
+
+    """
+
+    def __init__(self):
+        ...
+
+
+    def create_habit(self, name: str, time: int) -> Habit:
+        habit: Habit = Habit(
+            name=name,
+            minutes=time,
+        )
+
+        return habit
+
+    def create_weightened_habit(self, name: str, time: int, weight: int) -> WeightenedHabit:
+        weightened_habit: WeightenedHabit = WeightenedHabit(
+            name=name,
+            minutes=time,
+            weight=weight,
+        )
+
+        return weightened_habit
+
+
 
 if __name__ == "__main__":
-    main()
+    # main()
+    user: User = User()
+
+    habit: Habit = user.create_habit(
+        name="programming",
+        time=20,
+    )
+
+    print(habit)
